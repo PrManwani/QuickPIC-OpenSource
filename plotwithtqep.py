@@ -28,7 +28,7 @@ for j, name in enumerate(pathname):
 	fez = []
 	fez = h5py.File(pathname[j], 'r')
 	fez = fez[u'QEP01-XZ']
-	fez = fez[:,128] #unit is in n_o here
+	fez = fez[:,128] #normalized to n_o
 	print(fez.min())
 	#FEZ = np.asarray(FEZ)
 	allfez.append(fez)
