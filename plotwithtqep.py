@@ -73,7 +73,7 @@ for ax in axarr:
 axes(frameon=0)
 plt.ylabel(r'QEP ($n_o$)')
 plt.xlabel(r'$\zeta$ $(\mu m)$')
-plt.title('10 bunches followed by a witness, Q~ = 2.67')
+plt.title('10 bunches followed by a witness, Q~ = 2.67') #Q~ = (m*N_b*k_p^3)/(n_o)
 #plt.plot(number,q,marker = 'o',linewidth=2,color='#006BB2')
 #lt.grid(True)
 #axarr.plot(allfez[0])
