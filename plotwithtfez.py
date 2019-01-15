@@ -38,9 +38,9 @@ for j, name in enumerate(pathname):
 	#FEZ[j] = FEZ[j][u'FEZ-XZ']
 allfez = np.asarray(allfez)
 mult = float(float(512)/float(30)) #30 is the box width and 512 is the number of grid points(2^9)
-beam_pos = [4,6,8,10,12,14,16,18,20,22]
+beam_pos = [4,6,8,10,12,14,16,18,20,22] #Position of the driver beams
 #big_beam_pos = [22]
-witness_pos = [23.55]
+witness_pos = [23.55] #Position of the witness beam
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
