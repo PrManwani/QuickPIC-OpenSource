@@ -28,7 +28,7 @@ for j, name in enumerate(pathname):
 	fez = []
 	fez = h5py.File(pathname[j], 'r')
 	fez = fez[u'QEP01-XZ']
-	fez = fez[:,128]*1.6
+	fez = fez[:,128] #unit is in n_o here
 	print(fez.min())
 	#FEZ = np.asarray(FEZ)
 	allfez.append(fez)
@@ -37,10 +37,11 @@ for j, name in enumerate(pathname):
 	#print(pathname[j])
 	#FEZ[j] = FEZ[j][u'FEZ-XZ']
 allfez = np.asarray(allfez)
-mult = float(float(512)/float(30))
+mult = float(float(512)/float(30)) #30 is the box width and 512 is the number of grid points(2^9)
+beam_pos = [4,6,8,10,12,14,16,18,20,22] #Positions of the driver beams
 beam_pos = [4,6,8,10,12,14,16,18,20,22]
 #big_beam_pos = [22]
-witness_pos = [23.55]
+witness_pos = [23.55] #Position of the witness beam
 fig = plt.figure()
 ax = fig.add_subplot(111)
 
@@ -72,7 +73,7 @@ for ax in axarr:
 axes(frameon=0)
 plt.ylabel(r'QEP ($n_o$)')
 plt.xlabel(r'$\zeta$ $(\mu m)$')
-#plt.title('10 bunches followed by a witness, Q~ = 2.67')
+plt.title('10 bunches followed by a witness, Q~ = 2.67')
 #plt.plot(number,q,marker = 'o',linewidth=2,color='#006BB2')
 #lt.grid(True)
 #axarr.plot(allfez[0])
