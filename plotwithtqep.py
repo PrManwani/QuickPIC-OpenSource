@@ -2,68 +2,95 @@ import h5py
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-main = '/home/pratik/hoffman/QEP01-XZ'
-pathname1 = []
+from pylab import *
+
+params = {
+   'axes.labelsize': 8,
+   'legend.fontsize': 10,
+   'xtick.labelsize': 10,
+   'ytick.labelsize': 10,
+   'text.usetex': False,
+   'figure.figsize': [6, 4.5]
+   }
+rcParams.update(params)
+
+main = '/home/pratik/Desktop/Resonantcase/10_2.4E6/QEP01-XZ'
+pathname = []
 for file in os.listdir(main):
 	if file.endswith(".h5"):
 		#dprint(i)
-		pathname1.append(os.path.join(main, file))
-main = '/home/pratik/hoffman/QEP02-XZ'
-pathname2 = []
-for file in os.listdir(main):
-	if file.endswith(".h5"):
-		#dprint(i)
-		pathname2.append(os.path.join(main, file))
+		pathname.append(os.path.join(main, file))
 
+pathname.sort()
 
-allqep1 = []
-allqep2 = []
-qep = []
-qep = h5py.File(pathname1[0], 'r')
-qep = qep[u'QEP01-XZ']
-qep = qep[:,128]
-print(qep.min())
-#FEZ = np.asarray(FEZ)
-allqep1.append(qep)
+allfez = []
+for j, name in enumerate(pathname):
+	fez = []
+	fez = h5py.File(pathname[j], 'r')
+	fez = fez[u'QEP01-XZ']
+	fez = fez[:,128]*1.6
+	print(fez.min())
+	#FEZ = np.asarray(FEZ)
+	allfez.append(fez)
 
-qep2 = []
-qep2 = h5py.File(pathname2[0], 'r')
-qep2 = qep2[u'QEP02-XZ']
-qep2 = qep2[:,128]
-print(qep2.min())
-#FEZ = np.asarray(FEZ)
-allqep2.append(qep2)
 
 	#print(pathname[j])
 	#FEZ[j] = FEZ[j][u'FEZ-XZ']
-allqep1 = np.asarray(qep)
-allqep2 = np.asarray(qep2)
+allfez = np.asarray(allfez)
 mult = float(float(512)/float(30))
-beam_pos = [round(mult*4),round(mult*6),round(mult*8),round(mult*10),round(mult*12),round(mult*14),round(mult*16),round(mult*18),round(mult*20),round(mult*22),round(mult*23.45)]
-print(np.shape(allqep1))
-number = np.shape(allqep1)[0]
-print(np.shape(allqep2))
-number = np.shape(allqep2)[0]
+beam_pos = [4,6,8,10,12,14,16,18,20,22]
+#big_beam_pos = [22]
+witness_pos = [23.55]
+fig = plt.figure()
+ax = fig.add_subplot(111)
+
+
+
+print(np.shape(allfez))
+
+number = np.shape(allfez)[0]
 print(number)
-number = number -16
+number = number
 f, axarr = plt.subplots(number, sharex=True, sharey=True)
 
-#f.suptitle('Sharing both axes')
-'''for i in range(number):
-	axarr[i].plot(allqep1[i])
+
+'''#f.suptitle('Sharing both axes')
+for i in range(number):
+	axarr[i].plot(allfez[i])
 	axarr[i].plot(beam_pos, [0,0,0,0,0,0,0,0,0,0,0], 'ro')
+	axarr[i].grid(True)
 # Bring subplots close to each other.
-f.subplots_adjust(hspace=0)'''
+f.subplots_adjust(hspace=0)
 # Hide x labels and tick labels for all but bottom plot.
-'''for ax in axarr:
+for ax in axarr:
     ax.label_outer()
 #plt.show()'''
-f, axarr = plt.subplots(2, sharex=True, sharey=True)
-axarr[0].plot(allqep1)
-axarr[0].plot(beam_pos, [0,0,0,0,0,0,0,0,0,0,0], 'ro')
-axarr[1].plot(allqep2)
+
+
+#f,axarr = plt.subplots(1, sharex=True, sharey=True)
+
+axes(frameon=0)
+plt.ylabel(r'QEP ($n_o$)')
+plt.xlabel(r'$\zeta$ $(\mu m)$')
+#plt.title('10 bunches followed by a witness, Q~ = 2.67')
+#plt.plot(number,q,marker = 'o',linewidth=2,color='#006BB2')
+#lt.grid(True)
+#axarr.plot(allfez[0])
+plt.axhline(y=0,xmin=0,xmax=0.95, linestyle="dashed")
+plt.plot(np.linspace(0,30,512),allfez[0],linewidth=2,color='#006BB2')
+#axarr.plot(big_beam_pos, [0], 'ro', markersize= 15)
+plt.plot(beam_pos, [0,0,0,0,0,0,0,0,0,0], 'ro')
+#axarr.plot(big_beam_pos, [0], 'ro', markersize = '12')
+
+
+plt.plot(witness_pos, [0], 'rp')
+
+xticks(np.arange(0, 32, 2))
+
+#yticks(np.arange(-1,1,0.2))
+'''axarr[1].plot(allfez[-1])
 axarr[1].plot(beam_pos, [0,0,0,0,0,0,0,0,0,0,0], 'ro')
 f.subplots_adjust(hspace=0)
-'''for ax in axarr:
+for ax in axarr:
     ax.label_outer()'''
 plt.show()
