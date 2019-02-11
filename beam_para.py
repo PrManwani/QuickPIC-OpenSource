@@ -3,8 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-main = '/home/pratik/hoffman/RAW-BEAM/11'
-datapath = '/home/pratik/hoffman/beam'
+#Path for the input files (Should be the folder having the h5 files of the particular beam you want to extract)
+
+main = '/home/pratik/Desktop/Variationwithtime/10000_100/RAW-BEAM/10'
+
+#Path for the output csv files. The corresponding files can be plotted using plot_beam_para.py.
+datapath = '/home/pratik/Desktop/Variationwithtime/10000_100/driver_10'
 '''
 pathname = []
 for file in os.listdir(main):
